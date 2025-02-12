@@ -22,10 +22,10 @@ public class User {
     private String address;
     private Role role;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user_c")
     private List<Contact> contacts;
 
-    @OneToMany(mappedBy="user")
+    @OneToMany(mappedBy="user_t")
     private List<Transaction> transactions;
 
 

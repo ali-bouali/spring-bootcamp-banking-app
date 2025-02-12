@@ -20,7 +20,7 @@ public class Transaction {
 
 
     @ManyToOne
-    private User user;
+    private User user_t;
 
     @OneToOne
     private Fraud fraud;

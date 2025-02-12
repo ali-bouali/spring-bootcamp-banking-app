@@ -21,7 +21,7 @@ public class Contact {
     private String ContactName;
 
     @ManyToOne
-    private User user;
+    private User user_c;
 
 
 }
