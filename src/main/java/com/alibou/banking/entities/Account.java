@@ -20,6 +20,7 @@ public class Account {
     private Integer id;
     private String email;
     private String password;
+    private Double amount_of_money;
 
     @OneToOne
     private User user;

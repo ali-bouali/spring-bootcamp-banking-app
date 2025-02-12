@@ -15,7 +15,10 @@ public class Fraud {
     @Id
     @GeneratedValue
     private Integer id;
-    private Integer amount;
+    private Integer fraudAmount;
     private String level;
+
+
+
 
 }
