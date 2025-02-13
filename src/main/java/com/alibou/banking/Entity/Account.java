@@ -20,6 +20,7 @@ public class Account {
     @Column(unique=true)
     private String username;
     private String password;
+    private String rib;
     @OneToOne
     private User user;
     @OneToMany(mappedBy = "account")
