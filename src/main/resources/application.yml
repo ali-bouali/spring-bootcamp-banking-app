@@ -1,16 +1,14 @@
 spring:
   datasource:
-    url: ${DB_URL}
-    username: username
-    password: password
+    url: jdbc:mysql://127.0.0.1:3306/bank
+    username: root
+    password: "@Houssaine203@"
   jpa:
     hibernate:
       ddl-auto: create-drop
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    database: mysql
+    database-platform: org.hibernate.dialect.MySQL8Dialect
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
-
