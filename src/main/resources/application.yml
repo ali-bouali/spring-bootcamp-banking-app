@@ -1,8 +1,8 @@
 spring:
   datasource:
     url: ${DB_URL}
-    username: username
-    password: password
+    username: jihen
+    password: jihen
   jpa:
     hibernate:
       ddl-auto: create-drop

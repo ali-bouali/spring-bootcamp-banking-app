@@ -1,7 +1,12 @@
 package com.alibou.banking.role;
 
-import com.alibou.banking.user.User;
-import jakarta.persistence.*;
+import com.alibou.banking.user.user;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,13 +19,13 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "Role")
-public class Role {
+@Table(name = "ROLE")
+public class role {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
     @OneToMany
-    private List<User> users;
+    private List<user> users;
 
 }

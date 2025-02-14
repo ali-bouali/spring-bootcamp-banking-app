@@ -1,14 +1,19 @@
 package com.alibou.banking.contact;
 
-import com.alibou.banking.user.User;
-import jakarta.persistence.*;
+import com.alibou.banking.user.user;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
-import java.util.List;
 
 @Entity
 @Getter
@@ -16,17 +21,14 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CONTACT")
-public class Contact {
+public class contact {
     @Id
     @GeneratedValue
     private Long id;
     private String firstName;
     private String lastName;
-    @Column(unique = true)
-    private String email;
-    private String phoneNumber;
     private String iban;
     @ManyToOne
-    @JoinColumn(name = "user_id")
-   private User user;
+    @JoinColumn(name = "user")
+   private user user;
 }
