@@ -1,6 +1,6 @@
 package com.alibou.banking.transaction;
 
-import com.alibou.banking.fraude.fraud;
+import com.alibou.banking.fraud.fraud;
 import com.alibou.banking.user.user;
 
 import jakarta.persistence.Entity;

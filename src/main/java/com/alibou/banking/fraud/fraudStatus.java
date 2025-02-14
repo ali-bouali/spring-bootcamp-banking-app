@@ -1,4 +1,4 @@
-package com.alibou.banking.fraude;
+package com.alibou.banking.fraud;
 
 public enum fraudStatus {
     UNDER_INVESTIGATION,
