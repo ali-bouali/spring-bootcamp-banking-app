@@ -25,7 +25,7 @@ public class role {
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "role")
     private List<user> users;
 
 }

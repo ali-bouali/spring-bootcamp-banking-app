@@ -29,7 +29,7 @@ public class account {
     private Long id;
     private String iban;
     @OneToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private user user;
 
 

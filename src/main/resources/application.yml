@@ -1,16 +1,15 @@
+
+
 spring:
   datasource:
-    url: ${DB_URL}
-    username: jihen
-    password: jihen
+    url: jdbc:postgresql://localhost:5432/BankingDB
+    username: postgres
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: create-drop
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-    show-sql: true
+      ddl-auto: create  # Can be 'create', 'update', or 'validate' based on your requirements
     properties:
       hibernate:
-        format_sql: true
-
-
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+  application:
+    name: BankingDB
