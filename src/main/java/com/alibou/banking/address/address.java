@@ -30,7 +30,7 @@ public class address {
     private String postalCode;
     private String country;
     @OneToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private user user;
 
 

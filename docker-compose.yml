@@ -3,13 +3,11 @@ services:
     container_name: postgres-sql-1
     image: postgres
     environment:
-      POSTGRES_USER: jihen
-      POSTGRES_PASSWORD: jihen
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 123Aze@@
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
     ports:
       - "5432:5432"
     restart: unless-stopped
-volumes:
-  postgres:

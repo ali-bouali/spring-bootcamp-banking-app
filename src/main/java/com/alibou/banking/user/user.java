@@ -26,7 +26,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
+@Table(name = "USERS")
 public class user {
 
     @Id
@@ -47,6 +47,6 @@ public class user {
     @ManyToOne
     private role role;
     @OneToOne(mappedBy = "user")
-    private address addresse;
+    private address address;
 
 }
