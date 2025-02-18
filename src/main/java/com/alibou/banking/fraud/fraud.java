@@ -1,6 +1,6 @@
 package com.alibou.banking.fraud;
 
-import com.alibou.banking.transaction.transaction;
+import com.alibou.banking.transaction.Transaction;
 
 
 import jakarta.persistence.Entity;
@@ -33,7 +33,7 @@ public class fraud {
     private fraudStatus status;
     private LocalDateTime date;
     @OneToOne
-    private transaction transaction;
+    private Transaction transaction;
 
 
 }

@@ -1,10 +1,10 @@
 package com.alibou.banking.user;
 
-import com.alibou.banking.account.account;
-import com.alibou.banking.address.address;
-import com.alibou.banking.contact.contact;
-import com.alibou.banking.role.role;
-import com.alibou.banking.transaction.transaction;
+import com.alibou.banking.account.Account;
+import com.alibou.banking.address.Address;
+import com.alibou.banking.Contact.Contact;
+import com.alibou.banking.role.Role;
+import com.alibou.banking.transaction.Transaction;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -26,8 +26,8 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "USER")
-public class user {
+@Table(name = "USERS")
+public class User {
 
     @Id
     @GeneratedValue
@@ -38,15 +38,15 @@ public class user {
     private String email;
     private String password;
     @OneToMany(mappedBy = "user")
-    private List<contact> contacts;
+    private List<Contact> contacts;
     @OneToOne
-    private account account;
+    private Account account;
     @OneToMany(mappedBy = "user")
-    private List<transaction> transactions;
+    private List<Transaction> transactions;
     private boolean active;
     @ManyToOne
-    private role role;
+    private Role role;
     @OneToOne(mappedBy = "user")
-    private address addresse;
+    private Address addresse;
 
 }

@@ -1,6 +1,6 @@
 package com.alibou.banking.address;
 
-import com.alibou.banking.user.user;
+import com.alibou.banking.user.User;
 
 
 import jakarta.persistence.Entity;
@@ -20,7 +20,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "ADDRESS")
-public class address {
+public class Address {
     @Id
     @GeneratedValue
     private Long id;
@@ -30,8 +30,8 @@ public class address {
     private String postalCode;
     private String country;
     @OneToOne
-    @JoinColumn(name = "user")
-    private user user;
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 }
