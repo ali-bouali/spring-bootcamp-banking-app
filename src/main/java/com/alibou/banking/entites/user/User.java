@@ -1,10 +1,10 @@
-package com.alibou.banking.user;
+package com.alibou.banking.entites.user;
 
-import com.alibou.banking.account.Account;
-import com.alibou.banking.address.Address;
-import com.alibou.banking.contact.Contact;
-import com.alibou.banking.role.role;
-import com.alibou.banking.transaction.Transaction;
+import com.alibou.banking.entites.account.Account;
+import com.alibou.banking.entites.address.Address;
+import com.alibou.banking.entites.contact.Contact;
+import com.alibou.banking.entites.role.Role;
+import com.alibou.banking.entites.transaction.Transaction;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -35,15 +35,15 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Contact> contacts;
     @OneToOne
     private Account account;
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<Transaction> transactions;
     private boolean active;
     @ManyToOne
-    private role role;
+    private Role role;
     @OneToOne
     private Address address;
 

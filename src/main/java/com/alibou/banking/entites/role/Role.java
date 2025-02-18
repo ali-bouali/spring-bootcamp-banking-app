@@ -1,6 +1,6 @@
-package com.alibou.banking.role;
+package com.alibou.banking.entites.role;
 
-import com.alibou.banking.user.User;
+import com.alibou.banking.entites.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -17,13 +17,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "ROLE")
-public class role {
+@Table(name = "ROLES")
+public class Role {
     @Id
     @GeneratedValue
     private Long id;
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "role")
     private List<User> users;
 
 }

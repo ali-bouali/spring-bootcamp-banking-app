@@ -1,4 +1,4 @@
-package com.alibou.banking.transaction;
+package com.alibou.banking.entites.transaction.enums;
 
 public enum transactionStatus {
     PENDING,

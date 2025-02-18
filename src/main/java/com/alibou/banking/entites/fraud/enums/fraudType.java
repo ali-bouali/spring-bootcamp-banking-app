@@ -1,4 +1,4 @@
-package com.alibou.banking.fraud;
+package com.alibou.banking.entites.fraud.enums;
 
 public enum fraudType {
     CARD_THEFT,

@@ -1,6 +1,8 @@
-package com.alibou.banking.fraud;
+package com.alibou.banking.entites.fraud;
 
-import com.alibou.banking.transaction.Transaction;
+import com.alibou.banking.entites.fraud.enums.fraudStatus;
+import com.alibou.banking.entites.fraud.enums.fraudType;
+import com.alibou.banking.entites.transaction.Transaction;
 
 
 import jakarta.persistence.Entity;
@@ -22,7 +24,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "FRAUD")
+@Table(name = "FRAUDS")
 public class Fraud {
     @Id
     @GeneratedValue

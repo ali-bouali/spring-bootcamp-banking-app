@@ -1,9 +1,10 @@
-package com.alibou.banking.transaction;
+package com.alibou.banking.entites.transaction;
 
-import com.alibou.banking.fraud.Fraud;
+import com.alibou.banking.entites.fraud.Fraud;
 
 
-import com.alibou.banking.user.User;
+import com.alibou.banking.entites.transaction.enums.transactionStatus;
+import com.alibou.banking.entites.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -26,7 +27,7 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "TRANSACTION")
+@Table(name = "TRANSACTIONS")
 
 public class Transaction {
     @Id
