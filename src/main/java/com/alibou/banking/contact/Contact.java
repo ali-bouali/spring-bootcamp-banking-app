@@ -1,6 +1,6 @@
 package com.alibou.banking.contact;
 
-import com.alibou.banking.user.user;
+import com.alibou.banking.user.User;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -21,7 +21,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "CONTACT")
-public class contact {
+public class Contact {
     @Id
     @GeneratedValue
     private Long id;
@@ -29,6 +29,6 @@ public class contact {
     private String lastName;
     private String iban;
     @ManyToOne
-    @JoinColumn(name = "user")
-   private user user;
+    @JoinColumn(name = "user_id")
+    private User user;
 }

@@ -1,6 +1,6 @@
 package com.alibou.banking.fraud;
 
-import com.alibou.banking.transaction.transaction;
+import com.alibou.banking.transaction.Transaction;
 
 
 import jakarta.persistence.Entity;
@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "FRAUD")
-public class fraud {
+public class Fraud {
     @Id
     @GeneratedValue
     private Long id;
@@ -33,7 +33,5 @@ public class fraud {
     private fraudStatus status;
     private LocalDateTime date;
     @OneToOne
-    private transaction transaction;
-
-
+    private Transaction transaction;
 }
