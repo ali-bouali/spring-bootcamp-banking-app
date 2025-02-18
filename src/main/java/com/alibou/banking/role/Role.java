@@ -1,7 +1,7 @@
 package com.alibou.banking.role;
 
-import com.alibou.banking.user.user;
 
+import com.alibou.banking.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -26,6 +26,6 @@ public class Role {
     private Long id;
     private String name;
     @OneToMany(mappedBy = "role")
-    private List<user> users;
+    private List<User> users;
 
 }

@@ -3,7 +3,8 @@ package com.alibou.banking.user;
 import com.alibou.banking.account.Account;
 
 import com.alibou.banking.address.Address;
-import com.alibou.banking.contact.contact;
+
+import com.alibou.banking.contact.Contact;
 import com.alibou.banking.role.Role;
 
 import com.alibou.banking.transaction.Transaction;
@@ -41,7 +42,7 @@ public class User {
     private String email;
     private String password;
     @OneToMany(mappedBy = "user")
-    private List<contact> contacts;
+    private List<Contact> contacts;
     @OneToOne
     private Account account;
     @OneToMany(mappedBy = "user")

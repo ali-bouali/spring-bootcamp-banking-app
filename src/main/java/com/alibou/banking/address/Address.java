@@ -1,8 +1,9 @@
 package com.alibou.banking.address;
 
-import com.alibou.banking.user.user;
 
 
+
+import com.alibou.banking.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -31,7 +32,7 @@ public class Address {
     private String country;
     @OneToOne
     @JoinColumn(name = "user_id")
-    private user user;
+    private User user;
 
 
 }
