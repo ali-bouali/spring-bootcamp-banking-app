@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User,Long> {
 
-    User findUserById(long id);
+    Optional<User> findUserById(long id);
     List<User> findUserByFirstName(String firstName);
     List<User> findAllByLastName(String lastName);
 
@@ -26,6 +26,8 @@ public interface UserRepository extends JpaRepository<User,Long> {
     void deleteAllByActive(boolean active);
     void deleteAllByRoleId(long roleId);
     void deleteAllByAccountId(long accountId);
+    boolean existsByEmail(String email);
+
 
 
 
