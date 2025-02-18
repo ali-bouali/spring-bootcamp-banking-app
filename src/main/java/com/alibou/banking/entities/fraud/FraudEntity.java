@@ -1,11 +1,10 @@
-package com.alibou.banking.fraud;
+package com.alibou.banking.entities.fraud;
 
-import com.alibou.banking.transaction.transaction;
+import com.alibou.banking.entities.shared.SharedEntity;
+import com.alibou.banking.entities.transaction.TransactionEntity;
 
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -14,26 +13,25 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 
-
+@SuperBuilder
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "FRAUD")
-public class fraud {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "FRAUDS")
+public class FraudEntity extends SharedEntity {
     @Enumerated(EnumType.STRING)
-    private fraudType type;
+    private FraudType type;
     @Enumerated(EnumType.STRING)
-    private fraudStatus status;
+    private FraudStatus status;
     private LocalDateTime date;
     @OneToOne
-    private transaction transaction;
+    private TransactionEntity TransactionEntity;
 
 
 }
