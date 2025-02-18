@@ -1,7 +1,9 @@
 package com.alibou.banking.transaction;
 
-import com.alibou.banking.fraud.fraud;
-import com.alibou.banking.user.user;
+import com.alibou.banking.fraud.Fraud;
+
+import com.alibou.banking.user.User;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
@@ -26,7 +28,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "TRANSACTION")
-public class transaction {
+public class Transaction {
     @Id
     @GeneratedValue
     private Long id;
@@ -34,13 +36,13 @@ public class transaction {
     private BigDecimal amount;
     private LocalDateTime date;
     @Enumerated(EnumType.STRING)
-    private transactionStatus status;
+    private TransactionStatus status;
     private String destinationIban;
     private String sourceIban;
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private user user;
+    private User user;
     @OneToOne
-    private fraud fraud;
+    private Fraud fraud;
 
 }

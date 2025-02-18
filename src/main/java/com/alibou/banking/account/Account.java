@@ -1,13 +1,16 @@
-package com.alibou.banking.contact;
+package com.alibou.banking.account;
 
-import com.alibou.banking.user.user;
+
+import com.alibou.banking.user.User;
+
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,15 +23,15 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "CONTACT")
-public class contact {
+@Table(name = "ACCOUNT")
+public class Account {
     @Id
     @GeneratedValue
     private Long id;
-    private String firstName;
-    private String lastName;
     private String iban;
-    @ManyToOne
-    @JoinColumn(name = "user")
-   private user user;
+    @OneToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
+
 }

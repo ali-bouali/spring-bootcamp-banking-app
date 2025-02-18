@@ -1,6 +1,6 @@
 package com.alibou.banking.transaction;
 
-public enum transactionStatus {
+public enum TransactionStatus {
     PENDING,
     COMPLETED,
     FAILED,

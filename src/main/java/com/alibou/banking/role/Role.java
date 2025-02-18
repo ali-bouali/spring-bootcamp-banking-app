@@ -1,37 +1,31 @@
-package com.alibou.banking.address;
+package com.alibou.banking.role;
 
 import com.alibou.banking.user.user;
-
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ADDRESS")
-public class address {
+@Table(name = "ROLE")
+public class Role {
     @Id
     @GeneratedValue
     private Long id;
-    private String street;
-    private String city;
-    private String state;
-    private String postalCode;
-    private String country;
-    @OneToOne
-    @JoinColumn(name = "user")
-    private user user;
-
+    private String name;
+    @OneToMany(mappedBy = "role")
+    private List<user> users;
 
 }
