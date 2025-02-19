@@ -11,11 +11,11 @@ import java.util.List;
 import java.util.Optional;
 @Repository
 public interface  AccountRepository extends JpaRepository<account,Integer> {
- /*   Optional<account> findAllByIban(String iban);
+  Optional<account> findAllByIban(String iban);
 
 
     @Query("SELECT account.user FROM account   WHERE account.id = :accountId")
     Optional<user> findUserByAccountId(@Param("accountId") Long accountId);
 
-*/
+
 }
