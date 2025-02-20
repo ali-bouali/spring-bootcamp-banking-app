@@ -7,6 +7,7 @@ import com.alibou.banking.contact.Contact;
 import com.alibou.banking.role.Role;
 import com.alibou.banking.transaction.Transaction;
 import jakarta.persistence.Column;
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
@@ -43,7 +44,7 @@ public class User extends AbstractEntity {
     private boolean active;
     @ManyToOne
     private Role role;
-    @OneToOne(mappedBy = "user")
+    @Embedded
     private Address address;
 
 }
