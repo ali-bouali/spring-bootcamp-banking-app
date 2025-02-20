@@ -1,14 +1,12 @@
-package com.alibou.banking.account;
+package com.alibou.banking.contact;
+
 
 
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
-
-
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.JoinColumn;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,14 +21,13 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "ACCOUNTS")
-public class Account extends AbstractEntity {
+@Table(name = "CONTACTS")
+public class Contact extends AbstractEntity {
 
-    @Column(unique=true)
+    private String firstName;
+    private String lastName;
     private String iban;
-    @OneToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-
+    @ManyToOne
+    @JoinColumn(name = "user")
+   private User user;
 }

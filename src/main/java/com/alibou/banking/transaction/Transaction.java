@@ -44,4 +44,5 @@ public class Transaction extends AbstractEntity {
     private User user;
     @OneToOne
     private Fraud fraud;
+
 }

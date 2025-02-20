@@ -6,7 +6,12 @@ import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.contact.Contact;
 import com.alibou.banking.role.Role;
 import com.alibou.banking.transaction.Transaction;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,6 +43,7 @@ public class User extends AbstractEntity {
     private boolean active;
     @ManyToOne
     private Role role;
-    @OneToOne(mappedBy = "user",cascade= CascadeType.ALL,orphanRemoval = true)
+    @OneToOne(mappedBy = "user")
     private Address address;
+
 }

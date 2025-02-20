@@ -1,13 +1,13 @@
 package com.alibou.banking.role;
 
-import com.alibou.banking.user.user;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface RoleRepository extends JpaRepository<role, Integer> {
+public interface RoleRepository extends JpaRepository<Role, Long> {
 
-    List<Object[]>getUserByName(String name);
+    Optional<Role> findByName(String name);
 
+    Optional<Role> findById(Long id);
 
 }
