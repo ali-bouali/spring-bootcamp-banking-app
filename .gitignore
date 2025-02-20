@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+# Ignore environment-specific files
+src/main/resources/application.yml
+pom.xml
