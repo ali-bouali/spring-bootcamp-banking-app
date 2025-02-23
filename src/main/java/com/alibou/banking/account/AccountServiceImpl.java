@@ -8,11 +8,16 @@ import com.alibou.banking.user.User;
 import com.alibou.banking.user.UserMapper;
 import com.alibou.banking.user.UserRepository;
 import com.alibou.banking.user.UserRequest;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class AccountServiceImpl implements AccountService {
 
     private final AccountRepository accountRepository;
@@ -40,15 +45,27 @@ public class AccountServiceImpl implements AccountService {
 
     @Override
     public void deactivateAccount(Long accountId) {
+        changeStatus(accountId, false);
 
     }
 
+
+
     @Override
     public void activateAccount(Long accountId) {
-
+        changeStatus(accountId, true);
     }
 
     private String generateIban() {
         return "TN12 1233 3333 3333 33";
+    }
+
+
+    private void changeStatus(Long accountId, boolean status) {
+        Optional<Account> account = accountRepository.findByIdAndIsActive(accountId, !status);
+        account.ifPresentOrElse(value -> value.setIsActive(status), () -> {
+            log.error("Account not found");
+            throw new EntityNotFoundException("Account not found");
+        });
     }
 }
