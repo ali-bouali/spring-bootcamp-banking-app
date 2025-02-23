@@ -3,6 +3,7 @@ package com.alibou.banking.role;
 
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
@@ -22,7 +23,7 @@ import java.util.List;
 @SuperBuilder
 @Table(name = "ROLES")
 public class Role extends AbstractEntity {
-
+    @Column(unique = true)
     private String name;
     @OneToMany(mappedBy = "role")
     private List<User> users;
