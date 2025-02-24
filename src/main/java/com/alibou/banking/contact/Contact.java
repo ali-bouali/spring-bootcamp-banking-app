@@ -28,7 +28,7 @@ public class Contact extends AbstractEntity {
     private String lastName;
     private String iban;
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
     private Boolean isActive;
 
