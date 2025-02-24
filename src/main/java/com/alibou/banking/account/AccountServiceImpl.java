@@ -49,8 +49,6 @@ public class AccountServiceImpl implements AccountService {
 
     }
 
-
-
     @Override
     public void activateAccount(Long accountId) {
         changeStatus(accountId, true);
