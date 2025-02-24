@@ -30,6 +30,6 @@ public class Contact extends AbstractEntity {
     @ManyToOne
     @JoinColumn(name = "user")
     private User user;
-    public Boolean isActive;
+    private Boolean isActive;
 
 }

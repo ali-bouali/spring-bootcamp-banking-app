@@ -2,6 +2,7 @@ package com.alibou.banking.contact;
 
 import com.alibou.banking.user.User;
 import com.alibou.banking.user.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,9 +14,9 @@ public class ContactServiceImpl implements ContactService {
     private final UserRepository userRepository;
 
     @Override
-    public void createContact(CreateContactRequest contactRequest) {
+    public void createContact(ContactRequest contactRequest) {
         User user = userRepository.findById(contactRequest.getUserId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new EntityNotFoundException("User not found"));
         //Checking if iban exists
         if (contactRepository.existsByUserIdAndIban(contactRequest.getUserId(), contactRequest.getIban())) {
             throw new RuntimeException("Contact already exists");
@@ -32,7 +33,7 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void updateContact(Long contactId, UpdateContactRequest contactRequest, Long userId) {
+    public void updateContact(Long contactId, ContactRequest contactRequest, Long userId) {
         Contact contact = contactRepository.findByIdAndUserId(contactId, userId)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
 
@@ -50,7 +51,7 @@ public class ContactServiceImpl implements ContactService {
     public void activateContact(Long contactId, Long userId) {
         Contact contact = contactRepository.findByIdAndUserId(contactId, userId)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
-        if (contact.isActive) {
+        if (contact.getIsActive()) {
             throw new RuntimeException("Contact already activated");
         }
         contact.setIsActive(true);
@@ -62,7 +63,7 @@ public class ContactServiceImpl implements ContactService {
     public void deactivateContact(Long contactId, Long userId) {
         Contact contact = contactRepository.findByIdAndUserId(contactId, userId)
                 .orElseThrow(() -> new RuntimeException("Contact not found"));
-        if (!contact.isActive) {
+        if (!contact.getIsActive()) {
             throw new RuntimeException("Contact already inactive");
         }
         contact.setIsActive(false);

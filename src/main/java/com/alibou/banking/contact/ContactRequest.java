@@ -7,8 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UpdateContactRequest {
+public class ContactRequest {
     private String firstName;
     private String lastName;
     private String iban;
+    private Long userId;
+
 }
