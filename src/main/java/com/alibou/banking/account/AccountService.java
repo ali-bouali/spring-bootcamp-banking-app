@@ -4,8 +4,8 @@ public interface AccountService {
 
     void createAccount(CreateAccountRequest accountRequest);
 
-    void deactivateAccount(Long accountId);
+    void lockAccount(Long accountId);
 
-    void activateAccount(Long accountId);
+    void unlockAccount(Long accountId);
 
 }

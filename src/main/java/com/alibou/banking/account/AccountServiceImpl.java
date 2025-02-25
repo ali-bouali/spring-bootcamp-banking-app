@@ -39,13 +39,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void deactivateAccount(Long accountId) {
-
+    public void lockAccount(Long accountId) {
+        accountRepository.lockAccount(accountId);
     }
 
     @Override
-    public void activateAccount(Long accountId) {
-
+    public void unlockAccount(Long accountId) {
+        accountRepository.unlockAccount(accountId);
     }
 
     private String generateIban() {
