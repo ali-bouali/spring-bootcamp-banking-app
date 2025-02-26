@@ -13,7 +13,7 @@ public class TransactionMapper {
                 .date(transactionRequest.getDate())
                 .status(transactionRequest.getStatus())
                 .type(transactionRequest.getType())
-                .description(transactionRequest.getDescription())
+                .raison(transactionRequest.getRaison())
                 .build();
 
     }
