@@ -32,11 +32,12 @@ import java.time.LocalDateTime;
 @Table(name = "TRANSACTIONS")
 public class Transaction extends AbstractEntity {
 
-    private String description;
+    private String raison;
     private BigDecimal amount;
     private LocalDateTime date;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
+    private TransactionType type;
     private String destinationIban;
     private String sourceIban;
     @ManyToOne
