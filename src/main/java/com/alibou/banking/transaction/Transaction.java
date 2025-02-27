@@ -9,6 +9,7 @@ import com.alibou.banking.user.User;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Table;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -39,6 +40,8 @@ public class Transaction extends AbstractEntity {
     private TransactionStatus status;
     private String destinationIban;
     private String sourceIban;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

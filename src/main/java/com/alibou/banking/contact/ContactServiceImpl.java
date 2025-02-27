@@ -11,7 +11,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -78,5 +77,10 @@ public class ContactServiceImpl implements ContactService {
         return contactRepository.findById(contactId)
                 .map(contactMapper::toContactResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Contact with id " + contactId + " not found"));
+    }
+
+    @Override
+    public boolean accountExists(String destinationIban, Long userId) {
+        return contactRepository.existsByIbanAndUserId(destinationIban, userId);
     }
 }
