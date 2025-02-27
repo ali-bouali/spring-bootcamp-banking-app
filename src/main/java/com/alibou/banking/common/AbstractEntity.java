@@ -1,16 +1,17 @@
 package com.alibou.banking.common;
 
-
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.MappedSuperclass;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+
 
 @Getter
 @Setter
@@ -18,13 +19,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @SuperBuilder
 @MappedSuperclass
-public class AbstractEntity {
+public abstract class AbstractEntity {
+
     @Id
     @GeneratedValue
     private Long id;
-    private LocalDateTime createAt;
-    private LocalDateTime updateAt;
-    private Long createBy;
-    private Long updateBy;
 
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Long createdBy;
+    private Long updatedBy;
 }

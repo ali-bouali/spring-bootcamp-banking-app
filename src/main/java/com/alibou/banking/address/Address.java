@@ -1,15 +1,13 @@
 package com.alibou.banking.address;
 
+import com.alibou.banking.user.user;
+
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
-
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,7 +20,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "ADDRESS")
+@Table(name = "ADDRESSES")
 public class Address extends AbstractEntity {
 
     private String street;

@@ -4,9 +4,8 @@ package com.alibou.banking.account;
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
 
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.JoinColumn;
@@ -24,7 +23,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "ACCOUNT")
+@Table(name = "ACCOUNTS")
 public class Account extends AbstractEntity {
 
     private String iban;
@@ -32,7 +31,6 @@ public class Account extends AbstractEntity {
     @JoinColumn(name = "user_id")
     private User user;
     private boolean locked;
-
 
 
 }

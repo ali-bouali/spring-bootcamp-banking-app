@@ -2,7 +2,6 @@ package com.alibou.banking.account;
 
 import com.alibou.banking.address.Address;
 import com.alibou.banking.address.AddressMapper;
-import com.alibou.banking.address.AdressRepository;
 import com.alibou.banking.address.AddressRequest;
 import com.alibou.banking.user.User;
 import com.alibou.banking.user.UserMapper;
@@ -14,26 +13,27 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class AccountServiceImpl implements AccountService {
+
     private final AccountRepository accountRepository;
     private final UserRepository userRepository;
-    private final AdressRepository adressRepository;
+    private final AddressRepository addressRepository;
     private final UserMapper userMapper;
     private final AddressMapper addressMapper;
     private final AccountMapper accountMapper;
 
-
-
     @Override
     public void createAccount(CreateAccountRequest accountRequest) {
-        UserRequest userRequest=accountRequest.getUserRequest();
-        User user= userMapper.mapToUser(userRequest);
-        User savedUser=userRepository.save(user);
+        UserRequest userRequest = accountRequest.getUser();
+        User user = userMapper.mapToUserEntity(userRequest);
+        User savedUser = userRepository.save(user);
 
-        AddressRequest addressRequest=accountRequest.getAddressRequest();
-        Address address =addressMapper.mapToAddress(addressRequest, savedUser);
-        adressRepository.save(address);
+        AddressRequest addressRequest = accountRequest.getAddress();
+        Address address = addressMapper.mapToAddressEntity(addressRequest, savedUser);
+        addressRepository.save(address);
 
-        Account account = accountMapper.mapToAccount(savedUser,generateIban());
+        final String iban = generateIban();
+        Account account = accountMapper.mapToAccountEntity(iban, savedUser);
+        accountRepository.save(account);
 
     }
 

@@ -6,7 +6,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountMapper {
 
-    public Account mapToAccount(User user, String iban) {
-        return Account.builder().iban(iban).user(user).locked(true).build();
+    public Account mapToAccountEntity(String iban, User savedUser) {
+        return Account.builder()
+                .iban(iban)
+                .user(savedUser)
+                .build();
     }
 }

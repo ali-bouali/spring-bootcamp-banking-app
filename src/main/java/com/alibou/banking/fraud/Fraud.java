@@ -4,9 +4,8 @@ import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.transaction.Transaction;
 
 
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.EnumType;
@@ -26,7 +25,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @SuperBuilder
-@Table(name = "FRAUD")
+@Table(name = "FRAUDS")
 public class Fraud extends AbstractEntity {
 
     @Enumerated(EnumType.STRING)

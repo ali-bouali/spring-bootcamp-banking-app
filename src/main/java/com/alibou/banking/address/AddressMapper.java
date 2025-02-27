@@ -5,13 +5,12 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AddressMapper {
-    public Address  mapToAddress(AddressRequest addressRequest, User user){
+    public Address mapToAddressEntity(AddressRequest addressRequest, User user) {
         return Address.builder()
-                .street(addressRequest.getSteet())
-                .city(addressRequest.getCity())
-                .state(addressRequest.getState())
-                .postalCode(addressRequest.getPostalCode())
                 .country(addressRequest.getCountry())
+                .city(addressRequest.getCity())
+                .street(addressRequest.getStreet())
+                .postalCode(addressRequest.getPostalCode())
                 .user(user)
                 .build();
     }

@@ -1,13 +1,11 @@
 package com.alibou.banking.user;
 
-import lombok.Builder;
 import org.springframework.stereotype.Service;
-
 
 @Service
 public class UserMapper {
 
-    public User mapToUser(UserRequest userRequest) {
+    public User mapToUserEntity(UserRequest userRequest) {
         return User.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
@@ -15,5 +13,4 @@ public class UserMapper {
                 .password(userRequest.getPassword())
                 .build();
     }
-
 }

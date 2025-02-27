@@ -2,19 +2,16 @@ package com.alibou.banking.user;
 
 import com.alibou.banking.account.Account;
 import com.alibou.banking.address.Address;
-import com.alibou.banking.Contact.Contact;
 import com.alibou.banking.common.AbstractEntity;
+import com.alibou.banking.contact.Contact;
 import com.alibou.banking.role.Role;
 import com.alibou.banking.transaction.Transaction;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.OneToOne;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

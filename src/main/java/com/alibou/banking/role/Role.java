@@ -1,17 +1,17 @@
 package com.alibou.banking.role;
 
+import com.alibou.banking.user.user;
+
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
-
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -20,6 +20,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "ROLES")
 public class Role extends AbstractEntity {
 

@@ -1,6 +1,10 @@
-package com.alibou.banking.Contact;
+package com.alibou.banking.contact;
 
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -12,8 +16,6 @@ public class ContactResponse {
     private String firstName;
     private String lastName;
     private String iban;
-
-
 }
 
 
