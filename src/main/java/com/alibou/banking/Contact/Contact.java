@@ -1,5 +1,6 @@
 package com.alibou.banking.Contact;
 
+import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
 
 import jakarta.persistence.Entity;
@@ -12,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -20,15 +21,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "CONTACT")
-public class Contact {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Contact extends AbstractEntity {
+
     private String firstName;
     private String lastName;
     private String iban;
     @ManyToOne
     @JoinColumn(name = "user_id")
-   private User user;
+    private User user;
 }

@@ -1,6 +1,7 @@
 package com.alibou.banking.account;
 
 
+import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
 
 import jakarta.persistence.Entity;
@@ -14,7 +15,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
+import lombok.experimental.SuperBuilder;
 
 
 @Entity
@@ -22,15 +23,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "ACCOUNT")
-public class Account {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Account extends AbstractEntity {
+
     private String iban;
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+    private boolean locked;
+
 
 
 }

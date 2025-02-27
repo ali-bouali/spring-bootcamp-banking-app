@@ -1,5 +1,6 @@
 package com.alibou.banking.address;
 
+import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
 
 
@@ -13,17 +14,17 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "ADDRESS")
-public class Address {
-    @Id
-    @GeneratedValue
-    private Long id;
+public class Address extends AbstractEntity {
+
     private String street;
     private String city;
     private String state;

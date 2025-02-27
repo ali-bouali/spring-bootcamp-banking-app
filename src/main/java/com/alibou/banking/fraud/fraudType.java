@@ -1,6 +1,6 @@
 package com.alibou.banking.fraud;
 
-public enum fraudType {
+public enum FraudType {
     CARD_THEFT,
     PHISHING,
     IDENTITY_THEFT,

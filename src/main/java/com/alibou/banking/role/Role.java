@@ -1,5 +1,6 @@
 package com.alibou.banking.role;
 
+import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;
 
 import jakarta.persistence.Entity;
@@ -19,13 +20,11 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "ROLE")
-public class Role {
-    @Id
-    @GeneratedValue
-    private Long id;
+@Table(name = "ROLES")
+public class Role extends AbstractEntity {
+
     private String name;
-    @OneToMany
+    @OneToMany(mappedBy = "role")
     private List<User> users;
 
 }

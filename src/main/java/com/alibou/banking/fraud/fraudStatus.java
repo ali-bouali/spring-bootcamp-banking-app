@@ -1,6 +1,6 @@
 package com.alibou.banking.fraud;
 
-public enum fraudStatus {
+public enum FraudStatus {
     UNDER_INVESTIGATION,
     CONFIRMED,
     REJECTED,

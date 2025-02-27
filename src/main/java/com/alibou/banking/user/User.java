@@ -3,6 +3,7 @@ package com.alibou.banking.user;
 import com.alibou.banking.account.Account;
 import com.alibou.banking.address.Address;
 import com.alibou.banking.Contact.Contact;
+import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.role.Role;
 import com.alibou.banking.transaction.Transaction;
 
@@ -18,6 +19,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 import java.util.List;
 
@@ -26,12 +28,10 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@SuperBuilder
 @Table(name = "USERS")
-public class User {
+public class User extends AbstractEntity {
 
-    @Id
-    @GeneratedValue
-    private Long id;
     private String firstName;
     private String lastName;
     @Column(unique = true)
@@ -47,6 +47,6 @@ public class User {
     @ManyToOne
     private Role role;
     @OneToOne(mappedBy = "user")
-    private Address addresse;
+    private Address address;
 
 }
