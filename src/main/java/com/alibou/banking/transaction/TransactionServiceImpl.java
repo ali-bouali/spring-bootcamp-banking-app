@@ -3,8 +3,13 @@ package com.alibou.banking.transaction;
 
 import com.alibou.banking.contact.ContactRepository;
 import com.alibou.banking.contact.ContactService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -13,6 +18,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class TransactionServiceImpl implements TransactionService {
 
     private final ContactRepository contactRepository;
@@ -21,12 +27,19 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public void withdraw(CreateTransactionRequest transactionRequest) {
+    public void withdraw(CreateTransactionRequest transactionRequest,Long userId) {
+        BigDecimal balance=getBalance(userId);
+        BigDecimal amount=transactionRequest.getTransactionRequest().getAmount();
+        String sourceIban=transactionRequest.getTransactionRequest().getSourceIban();
+
+
+
 
     }
 
     @Override
-    public void deposit(CreateTransactionRequest transactionRequest) {
+    public void deposit(CreateTransactionRequest transactionRequest,Long userId) {
+        BigDecimal balance=getBalance(userId);
 
 
 
@@ -65,13 +78,6 @@ public class TransactionServiceImpl implements TransactionService {
         currentTransaction.setStatus(TransactionStatus.COMPLETED);
         currentTransaction.setDate(LocalDateTime.now());
         transactionRepository.save(currentTransaction);
-
-
-
-
-
-
-
     }
 
     @Override
@@ -81,13 +87,22 @@ public class TransactionServiceImpl implements TransactionService {
 
     @Override
     public List<TransactionResponse> findAllTransaction(Long userId, int page, int size) {
- return null;
+
+        Pageable pageable = PageRequest.of(page,size, Sort.by("date"));
+        return transactionRepository.findAllByUserId(userId ,pageable)
+                .getContent()
+                .stream()
+                .map(transactionMapper::toTansactionResponse)
+                .toList();
+
 
     }
 
     @Override
     public TransactionResponse findById(Long transactionId) {
-       return null;
+       return transactionRepository.findById(transactionId)
+               .map(transactionMapper::toTansactionResponse)
+               .orElseThrow(()-> new EntityNotFoundException("Transaction with id " + transactionId + "not found"));
     }
 
     private BigDecimal getBalance(Long userId){

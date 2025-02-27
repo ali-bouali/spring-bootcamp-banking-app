@@ -11,6 +11,5 @@ import lombok.*;
 @Builder
 public class CreateTransactionRequest {
     private TransactionRequest transactionRequest;
-    private UserRequest userRequest;
     private ContactRequest contactRequest;
 }

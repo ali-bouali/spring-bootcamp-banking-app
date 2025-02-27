@@ -10,7 +10,10 @@ import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-    Page<Contact> findAllByUserId(Long userId, Pageable pageable);
+
+
+    Page<Transaction> findAllByUserId(Long userId, Pageable pageable);
+
 @Query("""
          select sum(t.amount) from Transaction t
          where t.user.id = :userId
