@@ -61,7 +61,7 @@ public class ContactServiceImpl implements ContactService{
     public List<ContactResponse> findAllContacts(Long userId, int page, int size) {
         Pageable pageable = PageRequest.of(page,size, Sort.by("firstName","lastName"));
 
-        return contactRepository.findAllByUserId(userId,pageable).getContent().stream().map(contactMapper::toContactResponse).collect(Collectors.toList());
+        return contactRepository.findAllByUserId(userId,pageable).stream().map(contactMapper::toContactResponse).collect(Collectors.toList());
     }
 
 
