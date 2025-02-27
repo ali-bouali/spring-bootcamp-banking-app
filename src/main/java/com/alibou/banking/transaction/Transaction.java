@@ -37,6 +37,7 @@ public class Transaction extends AbstractEntity {
     private LocalDateTime date;
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
+    @Enumerated(EnumType.STRING)
     private TransactionType type;
     private String destinationIban;
     private String sourceIban;

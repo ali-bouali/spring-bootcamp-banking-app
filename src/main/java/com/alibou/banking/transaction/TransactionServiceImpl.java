@@ -27,89 +27,94 @@ public class TransactionServiceImpl implements TransactionService {
     private final TransactionMapper transactionMapper;
 
     @Override
-    public void withdraw(CreateTransactionRequest transactionRequest,Long userId) {
-        BigDecimal balance=getBalance(userId);
-        BigDecimal amount=transactionRequest.getTransactionRequest().getAmount();
-        String sourceIban=transactionRequest.getTransactionRequest().getSourceIban();
+    public void withdraw(CreateTransactionRequest transactionRequest, Long userId) {
+        BigDecimal balance = getBalance(userId);
+        BigDecimal amount = transactionRequest.getTransactionRequest().getAmount();
+        if (balance.compareTo(amount) < 0)
+            saveTransaction(transactionRequest, TransactionType.WITHDRAWAL, TransactionStatus.FAILED);
+
+        else
+            saveTransaction(transactionRequest, TransactionType.WITHDRAWAL, TransactionStatus.COMPLETED);
+
+    }
 
 
+    @Override
+    public void deposit(CreateTransactionRequest transactionRequest, Long userId) {
+        String sourceIban = transactionRequest.getTransactionRequest().getSourceIban();
+        BigDecimal amount = transactionRequest.getTransactionRequest().getAmount();
+        if (amount.compareTo(BigDecimal.ZERO) <= 0) {
+            throw new RuntimeException("Deposit must be positive and not null");
+        }
+        saveTransaction(transactionRequest, TransactionType.WITHDRAWAL, TransactionStatus.COMPLETED);
 
 
     }
 
     @Override
-    public void deposit(CreateTransactionRequest transactionRequest,Long userId) {
-        BigDecimal balance=getBalance(userId);
-
-
-
-    }
-
-    @Override
-    public void transfer(CreateTransactionRequest transactionRequest,Long userId) {
-        BigDecimal balance=getBalance(userId);
-        BigDecimal amount=transactionRequest.getTransactionRequest().getAmount();
-        String sourceIban=transactionRequest.getTransactionRequest().getSourceIban();
-        String destinationIban=transactionRequest.getTransactionRequest().getDestinationIban();
-        if(destinationIban==null || destinationIban.isEmpty()){
+    public void transfer(CreateTransactionRequest transactionRequest, Long userId) {
+        BigDecimal balance = getBalance(userId);
+        BigDecimal amount = transactionRequest.getTransactionRequest().getAmount();
+        String sourceIban = transactionRequest.getTransactionRequest().getSourceIban();
+        String destinationIban = transactionRequest.getTransactionRequest().getDestinationIban();
+        if (destinationIban == null || destinationIban.isEmpty()) {
             throw new RuntimeException("Destination IBAN is empty");
         }
-        if(sourceIban.equals(destinationIban)){
+        if (sourceIban.equals(destinationIban)) {
             throw new RuntimeException("you cannot send money to yourself");
         }
-        Boolean existContact =contactRepository.existsByIbanAndUserId(destinationIban,userId);
-        if(!existContact){
-            contactService.addContact(transactionRequest.getContactRequest(),userId);
+        Boolean existContact = contactRepository.existsByIbanAndUserId(destinationIban, userId);
+        if (!existContact) {
+            contactService.addContact(transactionRequest.getContactRequest(), userId);
 
         }
-        if(balance.compareTo(amount)<=0){
-            Transaction currentTransaction=transactionMapper.toTransactionEntity(transactionRequest.getTransactionRequest());
-            currentTransaction.setType(TransactionType.WITHDRAWAL);
-            currentTransaction.setStatus(TransactionStatus.FAILED);
-            currentTransaction.setDate(LocalDateTime.now());
-            transactionRepository.save(currentTransaction);
+        if (balance.compareTo(amount) < 0)
+            saveTransaction(transactionRequest, TransactionType.WITHDRAWAL, TransactionStatus.FAILED);
 
-            throw new RuntimeException("you don't have enough money");
+        else{
 
+            saveTransaction(transactionRequest, TransactionType.WITHDRAWAL, TransactionStatus.COMPLETED);
         }
-        //benesba lel fraud Pratiquement nfs 5edma just a3ml verification 3al amount (ya akther men 5 mil wela akther men 40%)
-        Transaction currentTransaction=transactionMapper.toTransactionEntity(transactionRequest.getTransactionRequest());
-        currentTransaction.setType(TransactionType.WITHDRAWAL);
-        currentTransaction.setStatus(TransactionStatus.COMPLETED);
-        currentTransaction.setDate(LocalDateTime.now());
-        transactionRepository.save(currentTransaction);
     }
 
     @Override
     public void validateTransaction(TransactionRequest transactionRequest) {
+
 
     }
 
     @Override
     public List<TransactionResponse> findAllTransaction(Long userId, int page, int size) {
 
-        Pageable pageable = PageRequest.of(page,size, Sort.by("date"));
-        return transactionRepository.findAllByUserId(userId ,pageable)
+        Pageable pageable = PageRequest.of(page, size, Sort.by("date"));
+        return transactionRepository.findAllByUserId(userId, pageable)
                 .getContent()
                 .stream()
                 .map(transactionMapper::toTansactionResponse)
                 .toList();
-
-
     }
 
     @Override
     public TransactionResponse findById(Long transactionId) {
-       return transactionRepository.findById(transactionId)
-               .map(transactionMapper::toTansactionResponse)
-               .orElseThrow(()-> new EntityNotFoundException("Transaction with id " + transactionId + "not found"));
+        return transactionRepository.findById(transactionId)
+                .map(transactionMapper::toTansactionResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Transaction with id " + transactionId + "not found"));
     }
 
-    private BigDecimal getBalance(Long userId){
+    private void saveTransaction(CreateTransactionRequest transactionRequest, TransactionType type, TransactionStatus status) {
 
-        BigDecimal totalDeposit = transactionRepository.getTransactionsByType("DEPOSIT",userId);
-        BigDecimal totalWithdraw = transactionRepository.getTransactionsByType("WITHDRAWAL",userId);
-        BigDecimal currentBalance=totalDeposit.subtract(totalWithdraw);
+        Transaction currentTransaction = transactionMapper.toTransactionEntity(transactionRequest.getTransactionRequest());
+        currentTransaction.setType(type);
+        currentTransaction.setStatus(status);
+        currentTransaction.setDate(LocalDateTime.now());
+        transactionRepository.save(currentTransaction);
+    }
+
+    private BigDecimal getBalance(Long userId) {
+
+        BigDecimal totalDeposit = transactionRepository.getTransactionsByType("DEPOSIT", userId);
+        BigDecimal totalWithdraw = transactionRepository.getTransactionsByType("WITHDRAWAL", userId);
+        BigDecimal currentBalance = totalDeposit.subtract(totalWithdraw);
         return currentBalance;
     }
 }
