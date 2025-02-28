@@ -1,6 +1,6 @@
 package com.alibou.banking.address;
 
-import com.alibou.banking.user.user;
+
 
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;

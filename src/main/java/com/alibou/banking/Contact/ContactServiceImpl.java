@@ -1,14 +1,21 @@
+package com.alibou.banking.Contact;
+
 import com.alibou.banking.user.User;
 import com.alibou.banking.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import com.alibou.banking.contact.ContactRepository;
+import com.alibou.banking.contact.ContactMapper;
+import com.alibou.banking.contact.Contact;
+import com.alibou.banking.contact.ContactRequest;
+import com.alibou.banking.contact.ContactResponse;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -21,7 +28,7 @@ public class ContactServiceImpl implements ContactService {
 
 
     @Override
-    public void addContact(ContactRequest contactRequest, Long userId) {
+    public void addContact(com.alibou.banking.contact.ContactRequest contactRequest, Long userId) {
         // check if the IBAN exists for the user
         if (contactRepository.existsByIbanAndUserId(contactRequest.getIban(), userId)) {
             throw new RuntimeException("Contact already exists");

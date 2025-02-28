@@ -1,6 +1,8 @@
-package com.alibou.banking.contact;
+package com.alibou.banking.Contact;
 
 import java.util.List;
+import com.alibou.banking.contact.ContactRequest;
+import  com.alibou.banking.contact.ContactResponse;
 
 public interface ContactService {
 
