@@ -83,4 +83,9 @@ public class ContactServiceImpl implements ContactService {
                 .map(contactMapper::toContactResponse)
                 .orElseThrow(() -> new EntityNotFoundException("Contact with id " + contactId + " not found"));
     }
+
+    @Override
+    public boolean accountExists(String destinationIban, Long userId) {
+        return contactRepository.existsByIbanAndUserId(destinationIban, userId);
+    }
 }

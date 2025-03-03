@@ -39,6 +39,8 @@ public class Transaction extends AbstractEntity {
     private TransactionStatus status;
     private String destinationIban;
     private String sourceIban;
+    @Enumerated(EnumType.STRING)
+    private TransactionType type;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;

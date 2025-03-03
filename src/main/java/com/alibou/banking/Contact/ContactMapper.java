@@ -3,6 +3,7 @@ package com.alibou.banking.contact;
 import org.springframework.stereotype.Service;
 import com.alibou.banking.contact.ContactRequest;
 import com.alibou.banking.contact.Contact;
+import com.alibou.banking.contact.ContactResponse;
 @Service
 public class ContactMapper {
     public Contact toContactEntity( ContactRequest contactRequest) {
@@ -19,7 +20,7 @@ public class ContactMapper {
         existingContact.setIban(contactRequest.getIban());
     }
 
-    public com.alibou.banking.contact.ContactResponse toContactResponse(Contact c) {
+    public  ContactResponse toContactResponse(Contact c) {
         return null;
     }
 }

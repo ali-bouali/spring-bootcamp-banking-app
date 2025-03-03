@@ -1,6 +1,6 @@
 package com.alibou.banking.role;
 
-import com.alibou.banking.user.user;
+import com.alibou.banking.user.User;
 
 import com.alibou.banking.common.AbstractEntity;
 import com.alibou.banking.user.User;

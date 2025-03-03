@@ -12,6 +12,6 @@ public interface ContactService {
     void deleteContact(Long userId);
     List<ContactResponse> findAllContacts(Long userId, int page, int size);
     ContactResponse findById(Long contactId);
-
+    boolean accountExists(String destinationIban, Long userId);
 
 }
