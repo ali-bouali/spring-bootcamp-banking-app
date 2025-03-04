@@ -75,4 +75,21 @@ public class TransactionMapper {
                 .fraudType(type)
                 .build();
     }
+
+    public TransactionWithFraudResponse toTransactionWithFraudResponse(Transaction transaction) {
+        return TransactionWithFraudResponse.builder()
+                .transactionId(transaction.getId())
+                .transactionDescription(transaction.getDescription())
+                .userFullName(transaction.getUser().fullName())
+                .sourceIban(transaction.getSourceIban())
+                .destinationIban(transaction.getDestinationIban())
+                .amount(transaction.getAmount())
+                .transactionDate(transaction.getDate())
+                .transactionStatus(transaction.getStatus())
+                .transactionUpdatedAt(transaction.getUpdatedAt())
+                .fraudStatus(transaction.getFraud().getStatus())
+                .fraudDate(transaction.getFraud().getDate())
+                .fraudUpdatedAt(transaction.getFraud().getUpdatedAt())
+                .build();
+    }
 }

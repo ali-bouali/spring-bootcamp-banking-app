@@ -1,5 +1,6 @@
 package com.alibou.banking.transaction;
 
+import com.alibou.banking.fraud.FraudType;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -19,4 +20,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
     BigDecimal calculateAccountBalance(Long userId);
 
     Page<Transaction> findAllByUserId(Long userId, Pageable pageable);
+
+    @Query("""
+            SELECT t FROM Transaction t
+            INNER JOIN Fraud f ON f.transaction.id = t.id
+            WHERE f.type = :type
+            """)
+    Page<Transaction> findAllTransactionsHavingFraud(FraudType type, Pageable pageable);
 }

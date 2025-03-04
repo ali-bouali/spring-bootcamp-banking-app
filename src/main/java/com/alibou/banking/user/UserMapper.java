@@ -13,4 +13,13 @@ public class UserMapper {
                 .password(userRequest.getPassword())
                 .build();
     }
+
+    public UserResponse mapToUserResponse(User user) {
+        return UserResponse.builder()
+                .id(user.getId())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .build();
+    }
 }

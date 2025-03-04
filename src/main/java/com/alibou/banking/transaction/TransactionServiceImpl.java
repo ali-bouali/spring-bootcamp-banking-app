@@ -104,6 +104,39 @@ public class TransactionServiceImpl implements TransactionService {
                 .toList();
     }
 
+    @Override
+    @Transactional
+    public List<TransactionWithFraudResponse> findAllTransactionsWithFraud(int page, int size, FraudType type) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return transactionRepository.findAllTransactionsHavingFraud(type, pageRequest)
+                .getContent()
+                .stream()
+                .map(transactionMapper::toTransactionWithFraudResponse)
+                .toList();
+    }
+
+    @Override
+    @Transactional
+    public void changeTransactionFraudStatus(Long transactionId, FraudStatus fraudStatus) {
+        if (FraudStatus.UNDER_INVESTIGATION.equals(fraudStatus)) {
+            throw new RuntimeException("Unsupported status");
+        }
+        Transaction transaction = transactionRepository.findById(transactionId)
+                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+        Fraud fraud = transaction.getFraud();
+
+        // check if this is really a fraud
+        fraud.setStatus(fraudStatus);
+        if (FraudStatus.CONFIRMED.equals(fraudStatus)) {
+            transaction.setStatus(TransactionStatus.CANCELLED);
+        } else if (FraudStatus.REJECTED.equals(fraudStatus)) {
+            transaction.setStatus(TransactionStatus.COMPLETED);
+        }
+        transactionRepository.save(transaction);
+        fraudRepository.save(fraud);
+
+    }
+
     private boolean isFraudTransfer(BigDecimal accountBalance, BigDecimal transferAmount) {
         boolean isGreaterThat5000 = transferAmount.compareTo(BigDecimal.valueOf(5000)) > 0;
         BigDecimal accountBalance40Percent = accountBalance.multiply(BigDecimal.valueOf(0.4));

@@ -46,4 +46,8 @@ public class User extends AbstractEntity {
     @OneToOne(mappedBy = "user")
     private Address address;
 
+    public String fullName() {
+        return firstName + " " + lastName;
+    }
+
 }
