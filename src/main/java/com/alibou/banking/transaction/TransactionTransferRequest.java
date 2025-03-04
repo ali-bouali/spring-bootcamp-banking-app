@@ -8,18 +8,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
-
+import com.alibou.banking.contact.ContactRequest;
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
 public class TransactionTransferRequest {
 
-    private String raison;
+    private String reason;
     private BigDecimal transferAmount;
     private String destinationIban;
     private String sourceIban;
 
-    private ContactRequest contact;
+    private ContactRequest contactRequest;
+
+
+
 }

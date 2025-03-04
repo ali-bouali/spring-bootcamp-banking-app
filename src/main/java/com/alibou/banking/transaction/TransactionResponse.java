@@ -26,7 +26,9 @@ public class TransactionResponse {
     private TransactionType type;
     private String destinationIbn;
     private boolean hasFraud;
-    private FraudStatus fraudStatus;
+    private FraudStatus frauStatus;
     private FraudType fraudType;
+
+
 
 }

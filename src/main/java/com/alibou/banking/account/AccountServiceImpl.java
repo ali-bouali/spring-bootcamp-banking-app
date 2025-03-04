@@ -47,7 +47,6 @@ public class AccountServiceImpl implements AccountService {
     public void unlockAccount(Long accountId) {
         accountRepository.unlockAccount(accountId);
     }
-
     private String generateIban() {
         return "TN12 1233 3333 3333 33";
     }

@@ -11,22 +11,19 @@ import java.time.LocalDateTime;
 @Service
 public class TransactionMapper {
 
-    public Transaction toTransactionEntity(TransactionDepositRequest request, Long userId) {
+    Transaction mapToTransactionEntity(TransactionDepositRequest request,Long userId){
         return Transaction.builder()
-                .date(LocalDateTime.now())
                 .description("Deposing money")
+                .date(LocalDateTime.now())
                 .amount(request.getDepositAmount())
                 .type(TransactionType.DEPOSIT)
                 .status(TransactionStatus.COMPLETED)
-                .user(
-                        User.builder()
-                                .id(userId)
-                                .build()
-                )
+                .user(User.builder().id(userId).build())
                 .build();
-    }
 
-    public Transaction toTransactionEntity(TransactionWithdrawalRequest request, Long userId) {
+
+    }
+    public Transaction mapToTransactionEntity(TransactionWithdrawlRequest request, Long userId) {
         return Transaction.builder()
                 .date(LocalDateTime.now())
                 .description("Withdrawing money")
@@ -39,11 +36,10 @@ public class TransactionMapper {
                                 .build()
                 ).build();
     }
-
-    public Transaction toTransactionEntity(TransactionTransferRequest request, Long userId) {
+    public Transaction mapToTransactionEntity(TransactionTransferRequest request, Long userId) {
         return Transaction.builder()
                 .date(LocalDateTime.now())
-                .description(request.getRaison())
+                .description(request.getReason())
                 .amount(request.getTransferAmount().multiply(BigDecimal.valueOf(-1)))
                 .type(TransactionType.TRANSFER)
                 .status(TransactionStatus.COMPLETED)
@@ -55,24 +51,27 @@ public class TransactionMapper {
     }
 
     public TransactionResponse toTransactionResponse(Transaction transaction) {
-        boolean hasFraud = transaction.getFraud() != null;
-        FraudStatus status = null;
-        FraudType type = null;
-        if (hasFraud) {
-            status = transaction.getFraud().getStatus();
-            type = transaction.getFraud().getType();
+        boolean hasFraud=transaction.getFraud()!=null;
+        FraudStatus status=null;
+        FraudType type=null;
+        if(hasFraud){
+            status=transaction.getFraud().getStatus();
+            type=transaction.getFraud().getType();
+
         }
         return TransactionResponse.builder()
                 .id(transaction.getId())
                 .description(transaction.getDescription())
                 .amount(transaction.getAmount())
+                .status(transaction.getStatus())
+                .type(transaction.getType())
                 .date(transaction.getDate())
                 .destinationIbn(transaction.getDestinationIban())
-                .type(transaction.getType())
-                .status(transaction.getStatus())
                 .hasFraud(hasFraud)
-                .fraudStatus(status)
+                .frauStatus(status)
                 .fraudType(type)
                 .build();
     }
+
+
 }

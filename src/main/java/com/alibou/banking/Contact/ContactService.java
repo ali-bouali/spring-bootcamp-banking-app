@@ -1,6 +1,8 @@
-package com.alibou.banking.contact;
+package com.alibou.banking.Contact;
 
 import java.util.List;
+import com.alibou.banking.contact.ContactRequest;
+import  com.alibou.banking.contact.ContactResponse;
 
 public interface ContactService {
 
@@ -10,6 +12,6 @@ public interface ContactService {
     void deleteContact(Long userId);
     List<ContactResponse> findAllContacts(Long userId, int page, int size);
     ContactResponse findById(Long contactId);
-
     boolean accountExists(String destinationIban, Long userId);
+
 }

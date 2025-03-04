@@ -1,10 +1,12 @@
 package com.alibou.banking.contact;
 
 import org.springframework.stereotype.Service;
-
+import com.alibou.banking.contact.ContactRequest;
+import com.alibou.banking.contact.Contact;
+import com.alibou.banking.contact.ContactResponse;
 @Service
 public class ContactMapper {
-    public Contact toContactEntity(ContactRequest contactRequest) {
+    public Contact toContactEntity( ContactRequest contactRequest) {
         return Contact.builder()
                 .firstName(contactRequest.getFirstName())
                 .lastName(contactRequest.getLastName())
@@ -18,7 +20,7 @@ public class ContactMapper {
         existingContact.setIban(contactRequest.getIban());
     }
 
-    public ContactResponse toContactResponse(Contact c) {
+    public  ContactResponse toContactResponse(Contact c) {
         return null;
     }
 }

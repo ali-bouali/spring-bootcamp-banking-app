@@ -4,8 +4,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-
-public interface ContactRepository extends JpaRepository<Contact, Long> {
+import com.alibou.banking.contact.Contact;
+public interface ContactRepository extends JpaRepository<com.alibou.banking.contact.Contact, Long> {
     @Query("""
                SELECT c FROM Contact c
                WHERE c.iban = :iban
@@ -13,5 +13,5 @@ public interface ContactRepository extends JpaRepository<Contact, Long> {
             """)
     boolean existsByIbanAndUserId(String iban, Long userId);
 
-    Page<Contact> findAllByUserId(Long userId, Pageable pageable);
+    Page<com.alibou.banking.contact.Contact> findAllByUserId(Long userId, Pageable pageable);
 }
