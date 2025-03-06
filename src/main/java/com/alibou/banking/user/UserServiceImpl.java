@@ -50,4 +50,22 @@ public class UserServiceImpl implements UserService {
                 .map(userMapper::mapToUserResponse)
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+
+    @Override
+    public void changePassword(Long userId, ChangePasswordRequest changePasswordRequest) {
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmPassword())) {
+            throw new RuntimeException("Passwords do not match");
+        }
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // check the current password
+        // todo we need to check the crypted password
+        if (!user.getPassword().equals(changePasswordRequest.getOldPassword())) {
+            throw new RuntimeException("Old password does not match");
+        }
+
+        user.setPassword(changePasswordRequest.getNewPassword());
+        userRepository.save(user);
+    }
 }

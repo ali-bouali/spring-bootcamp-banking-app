@@ -8,5 +8,6 @@ public interface UserService {
     void updateUser(Long userId, UserUpdateRequest user);
     List<UserResponse> findAllUsers(int page, int size);
     UserResponse findById(Long userId);
+    void changePassword(Long userId, ChangePasswordRequest changePasswordRequest);
 
 }
