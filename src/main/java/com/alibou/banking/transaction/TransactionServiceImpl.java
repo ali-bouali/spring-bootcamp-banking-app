@@ -115,6 +115,12 @@ public class TransactionServiceImpl implements TransactionService {
                 .toList();
     }
 
+    public List<TransactionWithFraudProjection> findAllByProj(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return transactionRepository.findAllTransactionsHavingFraudProj(FraudType.PHISHING, pageRequest)
+                .getContent();
+    }
+
     @Override
     @Transactional
     public void changeTransactionFraudStatus(Long transactionId, FraudStatus fraudStatus) {

@@ -27,4 +27,24 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
             WHERE f.type = :type
             """)
     Page<Transaction> findAllTransactionsHavingFraud(FraudType type, Pageable pageable);
+
+    @Query("""
+            SELECT
+                t.id as transactionId,
+                concat(t.user.firstName, ' ', t.user.lastName) as userFullName,
+                t.description as transactionDescription,
+                t.sourceIban as sourceIban,
+                t.destinationIban as destinationIban,
+                t.amount as amount,
+                t.status as transactionStatus,
+                t.createdAt as transactionDate,
+                t.updatedAt as transactionUpdatedAt,
+                t.fraud.status as fraudStatus,
+                t.fraud.date as fraudDate,
+                t.fraud.updatedAt as fraudUpdatedAt
+                FROM Transaction t
+            INNER JOIN Fraud f ON f.transaction.id = t.id
+            WHERE f.type = :type
+            """)
+    Page<TransactionWithFraudProjection> findAllTransactionsHavingFraudProj(FraudType type, Pageable pageable);
 }
