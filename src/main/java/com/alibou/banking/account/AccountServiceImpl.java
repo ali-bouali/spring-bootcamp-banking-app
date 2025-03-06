@@ -8,8 +8,13 @@ import com.alibou.banking.user.User;
 import com.alibou.banking.user.UserMapper;
 import com.alibou.banking.user.UserRepository;
 import com.alibou.banking.user.UserRequest;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import javax.security.auth.login.AccountNotFoundException;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +51,23 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public void unlockAccount(Long accountId) {
         accountRepository.unlockAccount(accountId);
+    }
+
+    @Override
+    public List<AccountResponse> findAllAccounts(int page, int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
+        return accountRepository.findAll(pageRequest)
+                .getContent()
+                .stream()
+                .map(accountMapper::mapToAccountResponse)
+                .toList();
+    }
+
+    @Override
+    public AccountResponse findAccountById(Long accountId) {
+        return accountRepository.findById(accountId)
+                .map(accountMapper::mapToAccountResponse)
+                .orElseThrow(() -> new EntityNotFoundException("Account not found with id: " + accountId));
     }
 
     private String generateIban() {

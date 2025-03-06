@@ -12,4 +12,15 @@ public class AccountMapper {
                 .user(savedUser)
                 .build();
     }
+
+    public AccountResponse mapToAccountResponse(Account account) {
+        return AccountResponse.builder()
+                .id(account.getId())
+                .userFirstName(account.getUser().getFirstName())
+                .userLastName(account.getUser().getLastName())
+                .userEmail(account.getUser().getEmail())
+                .accountIban(account.getIban())
+                .locked(account.isLocked())
+                .build();
+    }
 }

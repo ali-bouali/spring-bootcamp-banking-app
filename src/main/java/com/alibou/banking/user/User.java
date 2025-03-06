@@ -29,10 +29,13 @@ import java.util.List;
 @Table(name = "USERS")
 public class User extends AbstractEntity {
 
+    @Column(nullable = false)
     private String firstName;
+    @Column(nullable = false)
     private String lastName;
-    @Column(unique = true)
+    @Column(unique = true, nullable = false)
     private String email;
+    @Column(nullable = false)
     private String password;
     @OneToMany(mappedBy = "user")
     private List<Contact> contacts;

@@ -1,10 +1,12 @@
 package com.alibou.banking.transaction;
 
 import com.alibou.banking.contact.ContactService;
+import com.alibou.banking.exceptions.TransactionException;
 import com.alibou.banking.fraud.Fraud;
 import com.alibou.banking.fraud.FraudRepository;
 import com.alibou.banking.fraud.FraudStatus;
 import com.alibou.banking.fraud.FraudType;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
@@ -42,13 +44,11 @@ public class TransactionServiceImpl implements TransactionService {
 
         // Early return
         if (accountBalance.compareTo(request.getWithdrawalAmount()) < 0) {
-            // todo create a better exception
-            throw new RuntimeException("Withdrawal amount exceeds account balance");
+
+            throw new TransactionException("Withdrawal amount exceeds account balance");
         }
 
         transactionRepository.save(withdrwalTransaction);
-
-
     }
 
     @Override
@@ -58,13 +58,13 @@ public class TransactionServiceImpl implements TransactionService {
         String destinationIban = request.getDestinationIban();
 
         if (sourceIban.equals(destinationIban)) {
-            throw new RuntimeException("You cannot send money to yourself");
+            throw new TransactionException("You cannot send money to yourself");
         }
 
         BigDecimal accountBalance = transactionRepository.calculateAccountBalance(userId);
         if (accountBalance.compareTo(request.getTransferAmount()) < 0) {
-            // todo create a better exception
-            throw new RuntimeException("Insufficient funds");
+
+            throw new TransactionException("Insufficient funds");
         }
 
         if (!contactService.accountExists(destinationIban, userId)) {
@@ -125,10 +125,10 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void changeTransactionFraudStatus(Long transactionId, FraudStatus fraudStatus) {
         if (FraudStatus.UNDER_INVESTIGATION.equals(fraudStatus)) {
-            throw new RuntimeException("Unsupported status");
+            throw new TransactionException("Unsupported status");
         }
         Transaction transaction = transactionRepository.findById(transactionId)
-                .orElseThrow(() -> new RuntimeException("Transaction not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Transaction not found"));
         Fraud fraud = transaction.getFraud();
 
         // check if this is really a fraud
