@@ -19,7 +19,7 @@ public class ContactRequest {
     private String firstName;
     @NotBlank(message = "Contact last name must not be empty")
     private String lastName;
-    @NotBlank(message = "Contact last name must not be empty")
+    @NotBlank(message = "Contact IBAN must not be empty")
     @Size(min = 34, max = 34, message = "IBAN must be exactly 34 characters long")
     @Pattern(regexp = "^[A-Z0-9]+$", message = "IBAN must contain only uppercase letters and numbers")
     private String iban;

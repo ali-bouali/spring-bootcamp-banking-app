@@ -33,13 +33,13 @@ public class AccountController {
         return ResponseEntity.ok(accountService.findAccountById(accountId));
     }
 
-    @PutMapping()
+    @PutMapping("/lock")
     @ResponseStatus(HttpStatus.OK)
     public void lockAccount(@Valid @RequestBody Long accountId) {
         accountService.lockAccount(accountId);
     }
 
-    @PutMapping()
+    @PutMapping("/unlock")
     @ResponseStatus(HttpStatus.OK)
     public void unlockAccount(@Valid @RequestBody Long accountId) {
         accountService.lockAccount(accountId);
