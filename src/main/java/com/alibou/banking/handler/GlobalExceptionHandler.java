@@ -1,6 +1,7 @@
 package com.alibou.banking.handler;
 
 import com.alibou.banking.exceptions.TransactionException;
+import com.alibou.banking.exceptions.UserException;
 import com.alibou.banking.transaction.Transaction;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
@@ -33,9 +34,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(TransactionException.class)
+    @ExceptionHandler({TransactionException.class, UserException.class})
     public ResponseEntity<?> handleException(TransactionException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
     }
+
+
 
 }
