@@ -1,5 +1,7 @@
 package com.alibou.banking.transaction;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,6 +17,8 @@ import java.math.BigDecimal;
 @Builder
 public class TransactionDepositRequest {
 
+
+    @Positive(message = "amount must be positive")
     private BigDecimal depositAmount;
 
 
