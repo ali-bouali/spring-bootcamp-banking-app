@@ -32,29 +32,28 @@ public class TransactionController {
     }
 
     @PostMapping("/withdraw")
-    public ResponseEntity<String> withdraw(@RequestParam Long userId, @Valid @RequestBody TransactionWithdrawalRequest request) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void withdraw(@RequestParam Long userId, @Valid @RequestBody TransactionWithdrawalRequest request) {
         transactionService.withdraw(userId, request);
-        return ResponseEntity.ok("Withdrawal successful.");
     }
-
     @PostMapping("/transfer")
-    public ResponseEntity<String> transfer(@RequestParam Long userId, @Valid @RequestBody TransactionTransferRequest request) {
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void  transfer(@RequestParam Long userId, @Valid @RequestBody TransactionTransferRequest request) {
         transactionService.transfer(userId, request);
-        return ResponseEntity.ok("Transfer successful.");
     }
 
-    @GetMapping("/{userId}")
-    public ResponseEntity<List<TransactionResponse>> findAllTransactionsByUser(@PathVariable Long userId,
-                                                                               @RequestParam(defaultValue = "0") int page,
-                                                                               @RequestParam(defaultValue = "10") int size) {
+    @GetMapping()
+    public ResponseEntity<List<TransactionResponse>> findAllTransactionsByUser( Long userId,
+                                                                               @RequestParam( value = "page", defaultValue = "0") int page,
+                                                                               @RequestParam(value = "size" ,defaultValue = "10") int size) {
         List<TransactionResponse> transactions = transactionService.finaAllTransactions(userId, page, size);
         return ResponseEntity.ok(transactions);
 
     }
 
     @GetMapping("/fraud")
-    public ResponseEntity<List<TransactionWithFraudResponse>> findAllTransactionsWithFraud(@RequestParam(defaultValue = "0") int page,
-                                                                                           @RequestParam(defaultValue = "10") int size,
+    public ResponseEntity<List<TransactionWithFraudResponse>> findAllTransactionsWithFraud(@RequestParam( value = "page", defaultValue = "0") int page,
+                                                                                           @RequestParam( value = "size" ,defaultValue = "10") int size,
                                                                                            @RequestParam FraudType type) {
         List<TransactionWithFraudResponse> fraudTransactions = transactionService.findAllTransactionsWithFraud(page, size, type);
         return ResponseEntity.ok(fraudTransactions);
@@ -62,7 +61,7 @@ public class TransactionController {
 
     @PatchMapping("/{transactionId}/fraud-status")
     public ResponseEntity<String> changeTransactionFraudStatus( @NotNull @PathVariable Long transactionId,
-           @NotNull @RequestBody FraudStatus fraudStatus) {
+           @NotNull  @RequestParam  FraudStatus fraudStatus) {
         transactionService.changeTransactionFraudStatus(transactionId, fraudStatus);
         return ResponseEntity.ok("Fraud status updated successfully.");
     }
