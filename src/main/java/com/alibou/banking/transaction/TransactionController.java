@@ -3,6 +3,7 @@ package com.alibou.banking.transaction;
 import com.alibou.banking.fraud.FraudStatus;
 import com.alibou.banking.fraud.FraudType;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,8 +63,8 @@ public class TransactionController {
     @PatchMapping("/{transaction-id}/fraud-status")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void changeTransactionFraudStatus(
-            @Valid @PathVariable("transaction-id")Long transctionId,
-            @RequestParam FraudStatus newStatus
+            @PathVariable("transaction-id")Long transctionId,
+            @RequestParam @NotNull FraudStatus newStatus
 
             ){
         transactionService.changeTransactionFraudStatus(transctionId, newStatus);
