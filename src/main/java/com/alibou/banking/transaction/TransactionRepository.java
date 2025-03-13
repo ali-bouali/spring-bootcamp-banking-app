@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.math.BigDecimal;
-import java.util.List;
 
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
@@ -37,11 +36,11 @@ public interface TransactionRepository extends JpaRepository<Transaction, Long> 
                 t.destinationIban as destinationIban,
                 t.amount as amount,
                 t.status as transactionStatus,
-                t.createdAt as transactionDate,
-                t.updatedAt as transactionUpdatedAt,
+                t.createdDate as transactionDate,
+                t.lastModifiedDate as transactionUpdatedAt,
                 t.fraud.status as fraudStatus,
                 t.fraud.date as fraudDate,
-                t.fraud.updatedAt as fraudUpdatedAt
+                t.fraud.lastModifiedDate as fraudUpdatedAt
                 FROM Transaction t
             INNER JOIN Fraud f ON f.transaction.id = t.id
             WHERE f.type = :type

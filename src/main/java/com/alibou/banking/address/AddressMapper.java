@@ -11,6 +11,7 @@ public class AddressMapper {
                 .city(addressRequest.getCity())
                 .street(addressRequest.getStreet())
                 .postalCode(addressRequest.getPostalCode())
+                .state(addressRequest.getState())
                 .user(user)
                 .build();
     }

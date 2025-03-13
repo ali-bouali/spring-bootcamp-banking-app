@@ -19,6 +19,11 @@ public class ContactMapper {
     }
 
     public ContactResponse toContactResponse(Contact c) {
-        return null;
+        return ContactResponse.builder()
+                .id(c.getId())
+                .firstName(c.getFirstName())
+                .lastName(c.getLastName())
+                .iban(c.getIban())
+                .build();
     }
 }

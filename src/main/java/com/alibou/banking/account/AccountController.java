@@ -31,8 +31,8 @@ public class AccountController {
 
     @GetMapping
     public ResponseEntity<List<AccountResponse>> findAllAccounts(
-            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
-            @RequestParam(value = "size", defaultValue = "10", required = false) int size
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "10") int size
     ) {
         return ResponseEntity.ok(accountService.findAllAccounts(page, size));
     }
@@ -44,15 +44,19 @@ public class AccountController {
         return ResponseEntity.ok(accountService.findAccountById(accountId));
     }
 
-    @PatchMapping("/lock")
+    @PatchMapping("/lock/{account-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void lockAccount(Long accountId) {
+    public void lockAccount(
+            @PathVariable("account-id") Long accountId
+    ) {
         accountService.lockAccount(accountId);
     }
 
-    @PatchMapping("/unlock")
+    @PatchMapping("/unlock/{account-id}")
     @ResponseStatus(HttpStatus.ACCEPTED)
-    public void unlockAccount(Long accountId) {
+    public void unlockAccount(
+            @PathVariable("account-id") Long accountId
+    ) {
         accountService.unlockAccount(accountId);
     }
 }

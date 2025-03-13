@@ -10,6 +10,7 @@ public class AccountMapper {
         return Account.builder()
                 .iban(iban)
                 .user(savedUser)
+                .locked(true)
                 .build();
     }
 

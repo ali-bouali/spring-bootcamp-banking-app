@@ -86,10 +86,10 @@ public class TransactionMapper {
                 .amount(transaction.getAmount())
                 .transactionDate(transaction.getDate())
                 .transactionStatus(transaction.getStatus())
-                .transactionUpdatedAt(transaction.getUpdatedAt())
+                .transactionUpdatedAt(transaction.getLastModifiedDate())
                 .fraudStatus(transaction.getFraud().getStatus())
                 .fraudDate(transaction.getFraud().getDate())
-                .fraudUpdatedAt(transaction.getFraud().getUpdatedAt())
+                .fraudUpdatedAt(transaction.getFraud().getLastModifiedDate())
                 .build();
     }
 }

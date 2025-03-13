@@ -25,6 +25,7 @@ public class ContactServiceImpl implements ContactService {
     @Override
     public void addContact(ContactRequest contactRequest, Long userId) {
         // check if the IBAN exists for the user
+        contactRepository.existsById(userId);
         if (contactRepository.existsByIbanAndUserId(contactRequest.getIban(), userId)) {
             throw new RuntimeException("Contact already exists");
         }

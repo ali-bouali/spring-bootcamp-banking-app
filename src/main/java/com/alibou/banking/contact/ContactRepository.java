@@ -7,7 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface ContactRepository extends JpaRepository<Contact, Long> {
     @Query("""
-               SELECT c FROM Contact c
+               SELECT COUNT(c) > 0
+               FROM Contact c
                WHERE c.iban = :iban
                AND c.user.id = :userId
             """)

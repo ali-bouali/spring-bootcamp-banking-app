@@ -1,8 +1,10 @@
 package com.alibou.banking.user;
 
+import org.springframework.security.core.userdetails.UserDetailsService;
+
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     void createUser(UserRequest user);
     void updateUser(Long userId, UserUpdateRequest user);

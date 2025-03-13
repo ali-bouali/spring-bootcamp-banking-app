@@ -13,4 +13,6 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
     @Query("UPDATE Account a set a.locked = false WHERE a.id = :accountId")
     @Modifying
     void unlockAccount(Long accountId);
+
+    boolean existsByIban(String newIban);
 }

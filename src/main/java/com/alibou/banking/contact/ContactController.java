@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/v1/contacts")
@@ -25,11 +23,15 @@ public class ContactController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void createContact(@Valid @RequestBody ContactRequest contact, Long userId) {
+    public void createContact(
+            @Valid @RequestBody ContactRequest contact,
+            @RequestParam("user-id") Long userId
+    ) {
         contactService.addContact(contact, userId);
     }
 
     @PutMapping("/{contact-id}")
+    @ResponseStatus(HttpStatus.OK)
     public void updateContact(
             @Valid @RequestBody ContactRequest contact,
             @PathVariable("contact-id") Long contactId,
@@ -39,19 +41,9 @@ public class ContactController {
     }
 
     @GetMapping("/{contact-id}")
-    public ResponseEntity<ContactResponse> findContactById(@PathVariable("contact-id") Long contactId) {
-        return ResponseEntity.ok(contactService.findById(contactId));
-    }
-
-    @GetMapping("/{contact-name}") // ==> ambiguity
-    public ResponseEntity<ContactResponse> findContactByFirstName(
-            @PathVariable("contact-name") String contactId
+    public ResponseEntity<ContactResponse> findContactById(
+            @PathVariable("contact-id") Long contactId
     ) {
-        Map<String, String> x = new HashMap<>();
-        x.put("contact-id", "wsss");
-        x.put("contact-id", "contactId");
-
-        x.get("contact-id");
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(contactService.findById(contactId));
     }
 }
