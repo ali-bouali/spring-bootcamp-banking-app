@@ -45,8 +45,9 @@ public class ContactController {
     ) {
         return ResponseEntity.ok(contactService.findAllContacts(userId,page, size));
     }
-    @DeleteMapping
-    public void deleteContactById(Long userId) {
+    @DeleteMapping("/{user-id}")
+    public void deleteContactById(
+            @PathVariable("user-id") Long userId) {
         contactService.deleteContact(userId);
     }
 

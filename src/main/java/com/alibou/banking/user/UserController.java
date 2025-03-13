@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1/accounts")
 @RequiredArgsConstructor
-public class userController {
+public class UserController {
     private final UserService userService;
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
