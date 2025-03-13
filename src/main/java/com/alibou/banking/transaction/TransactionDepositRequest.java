@@ -1,10 +1,8 @@
 package com.alibou.banking.transaction;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import lombok.*;
 
 import java.math.BigDecimal;
 
@@ -14,7 +12,8 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Builder
 public class TransactionDepositRequest {
-
+    @NotNull(message = "the amount must be not null")
+    @Positive(message = "the amount should be positive")
     private BigDecimal depositAmount;
 
 
