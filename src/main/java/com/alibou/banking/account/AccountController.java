@@ -5,10 +5,12 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,8 +30,11 @@ public class AccountController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AccountResponse>> findAllAccounts() {
-        return ResponseEntity.ok(accountService.findAllAccounts(0, 10));
+    public ResponseEntity<List<AccountResponse>> findAllAccounts(
+            @RequestParam(value = "page", defaultValue = "0", required = false) int page,
+            @RequestParam(value = "size", defaultValue = "10", required = false) int size
+    ) {
+        return ResponseEntity.ok(accountService.findAllAccounts(page, size));
     }
 
     @GetMapping("/{account-id}")
@@ -37,5 +42,17 @@ public class AccountController {
             @PathVariable("account-id") Long accountId
     ) {
         return ResponseEntity.ok(accountService.findAccountById(accountId));
+    }
+
+    @PatchMapping("/lock")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void lockAccount(Long accountId) {
+        accountService.lockAccount(accountId);
+    }
+
+    @PatchMapping("/unlock")
+    @ResponseStatus(HttpStatus.ACCEPTED)
+    public void unlockAccount(Long accountId) {
+        accountService.unlockAccount(accountId);
     }
 }
