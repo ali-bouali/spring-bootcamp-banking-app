@@ -56,8 +56,8 @@ public class ContactServiceImpl implements ContactService {
     }
 
     @Override
-    public void deleteContact(Long userId) {
-        contactRepository.deleteById(userId);
+    public void deleteContact(Long contactId) {
+        contactRepository.deleteById(contactId);
     }
 
     @Override
