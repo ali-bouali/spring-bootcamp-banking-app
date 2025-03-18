@@ -16,4 +16,6 @@ spring:
     user:
       password: my-password
       name: ali
-
+logging:
+  level:
+    org.springframework.security: debug

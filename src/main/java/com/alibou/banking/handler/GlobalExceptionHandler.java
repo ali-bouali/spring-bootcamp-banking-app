@@ -5,6 +5,7 @@ import jakarta.persistence.EntityNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -30,6 +31,14 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<?> handleException(BadCredentialsException exception) {
+        log.error(exception.getMessage(), exception);
+        return new ResponseEntity<>("Username and / or password is incorrect", HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<?> handleException(EntityNotFoundException exception) {
         log.error(exception.getMessage(), exception);
@@ -45,6 +54,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(TransactionException.class)
     public ResponseEntity<?> handleException(TransactionException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_ACCEPTABLE);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<?> handleException(Exception exception) {
+        log.error(exception.getMessage(), exception);
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
 }
