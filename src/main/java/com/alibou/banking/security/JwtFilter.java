@@ -34,7 +34,6 @@ public class JwtFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
-        // token --> ali@mail.com:ali:bouali:ADMIN:true
         final String token = authHeader.substring(7);
         final String userEmail = jwtService.extractUsername(token);
         if (userEmail == null) {
