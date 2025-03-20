@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,6 +29,7 @@ public class UserController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
+    @PreAuthorize("hasRole('ADMIN')")
     public void createUser(
             @RequestBody UserRequest userRequest
     ) {
@@ -36,6 +38,7 @@ public class UserController {
 
     @PutMapping("/{user-id}")
     @ResponseStatus(HttpStatus.OK)
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<Void> updateUser(
             @PathVariable("user-id") Long userId,
             @Valid @RequestBody UserUpdateRequest userUpdateRequest
@@ -44,7 +47,19 @@ public class UserController {
         return ResponseEntity.ok().build();
     }
 
+    @PutMapping
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<Void> updateSelfInformation(
+            @Valid @RequestBody UserUpdateRequest userUpdateRequest,
+            Authentication connectedUser
+    ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
+        userService.updateUser(userId, userUpdateRequest);
+        return ResponseEntity.ok().build();
+    }
+
     @GetMapping
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<List<UserResponse>> findAllUsers(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size

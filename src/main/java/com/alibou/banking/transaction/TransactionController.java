@@ -7,6 +7,8 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -58,16 +60,19 @@ public class TransactionController {
 
     @GetMapping()
     public ResponseEntity<List<TransactionResponse>> findAllTransactionsByUser(
-            Long userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "10") int size
+            @RequestParam(value = "size", defaultValue = "10") int size,
+            Authentication connectedUser
     ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
         List<TransactionResponse> transactions = transactionService.finaAllTransactions(userId, page, size);
         return ResponseEntity.ok(transactions);
 
     }
 
     @GetMapping("/fraud")
+    // Method Security
+    @PreAuthorize("hasRole('ADMIN')") // --> without ROLE_ because it is the default prefix in Spring
     public ResponseEntity<List<TransactionWithFraudResponse>> findAllTransactionsWithFraud(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "10") int size,
@@ -78,6 +83,7 @@ public class TransactionController {
     }
 
     @PatchMapping("/{transaction-id}/fraud-status")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> changeTransactionFraudStatus(
             @PathVariable("transaction-id") Long transactionId,
             @RequestParam FraudStatus fraudStatus) {
