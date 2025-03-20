@@ -2,10 +2,12 @@ package com.alibou.banking.transaction;
 
 import com.alibou.banking.fraud.FraudStatus;
 import com.alibou.banking.fraud.FraudType;
+import com.alibou.banking.user.User;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,27 +29,30 @@ public class TransactionController {
     @PostMapping("/deposit")
     @ResponseStatus(HttpStatus.CREATED)
     public void deposit(
-            @RequestParam Long userId,
-            @Valid @RequestBody TransactionDepositRequest request
+            @Valid @RequestBody TransactionDepositRequest request,
+            Authentication connectedUser
     ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
         transactionService.deposit(userId, request);
     }
 
     @PostMapping("/withdraw")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void withdraw(
-            @RequestParam Long userId,
-            @Valid @RequestBody TransactionWithdrawalRequest request
+            @Valid @RequestBody TransactionWithdrawalRequest request,
+            Authentication connectedUser
     ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
         transactionService.withdraw(userId, request);
     }
 
     @PostMapping("/transfer")
     @ResponseStatus(HttpStatus.ACCEPTED)
     public void transfer(
-            @RequestParam Long userId,
-            @Valid @RequestBody TransactionTransferRequest request
+            @Valid @RequestBody TransactionTransferRequest request,
+            Authentication connectedUser
     ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
         transactionService.transfer(userId, request);
     }
 

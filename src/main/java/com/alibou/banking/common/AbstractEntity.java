@@ -35,11 +35,16 @@ public abstract class AbstractEntity {
     @CreatedDate
     @Column(updatable = false, nullable = false)
     private LocalDateTime createdDate;
+
     @LastModifiedDate
     @Column(insertable = false)
     private LocalDateTime lastModifiedDate;
+
     @CreatedBy
+    @Column(nullable = false, updatable = false)
     private Long createdBy;
+
     @LastModifiedBy
+    @Column(insertable = false)
     private Long lastModifiedBy;
 }

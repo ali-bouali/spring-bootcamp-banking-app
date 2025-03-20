@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -61,7 +62,11 @@ public class UserController {
     }
 
     @PatchMapping("/change-password")
-    public ResponseEntity<Void> changePassword(Long userId, @Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+    public ResponseEntity<Void> changePassword(
+            @Valid @RequestBody ChangePasswordRequest changePasswordRequest,
+            Authentication connectedUser
+    ) {
+        final long userId = ((User)connectedUser.getPrincipal()).getId();
         userService.changePassword(userId, changePasswordRequest);
         return ResponseEntity.status(HttpStatus.OK).build();
     }
