@@ -41,7 +41,7 @@ public class AccountServiceImpl implements AccountService {
         User user = userMapper.mapToUserEntity(userRequest);
 
         Role customerRole = roleRepository.findByName(RoleName.ROLE_CUSTOMER.name())
-                .orElseThrow(() -> new EntityNotFoundException(RoleName.ROLE_CUSTOMER.name()));
+                .orElseThrow(() -> new EntityNotFoundException("No role found with name : " + RoleName.ROLE_CUSTOMER.name()));
 
         user.setRole(customerRole);
 
