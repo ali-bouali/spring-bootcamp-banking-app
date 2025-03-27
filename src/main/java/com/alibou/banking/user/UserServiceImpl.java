@@ -22,6 +22,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void createUser(UserRequest userRequest) {
+        if(userRequest==null){
+            throw new NullPointerException("userRequest is null");
+        }
         if (userRepository.existsByEmail(userRequest.getEmail())) {
             throw new RuntimeException("Email already exists");
         }

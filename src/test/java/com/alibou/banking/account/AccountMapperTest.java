@@ -39,7 +39,7 @@ class AccountMapperTest {
     void should_not_map_to_account_if_user_is_null() {
 
         final String iban = "TN-12345";
-         final NullPointerException exp = assertThrows(NullPointerException.class,
+        final NullPointerException exp = assertThrows(NullPointerException.class,
                  () -> accountMapper.mapToAccountEntity(iban, null));
 
          assertEquals("User should not be null", exp.getMessage());
