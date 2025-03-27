@@ -1,8 +1,6 @@
 package com.alibou.banking.user;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -14,6 +12,9 @@ public class UserMapper {
     private final PasswordEncoder passwordEncoder;
 
     public User mapToUserEntity(UserRequest userRequest) {
+        if(userRequest==null){
+            throw new NullPointerException("userRequest cannot be null");
+        }
         return User.builder()
                 .firstName(userRequest.getFirstName())
                 .lastName(userRequest.getLastName())
@@ -23,6 +24,9 @@ public class UserMapper {
     }
 
     public UserResponse mapToUserResponse(User user) {
+        if(user==null){
+            throw new NullPointerException("user cannot be null");
+        }
         return UserResponse.builder()
                 .id(user.getId())
                 .firstName(user.getFirstName())
