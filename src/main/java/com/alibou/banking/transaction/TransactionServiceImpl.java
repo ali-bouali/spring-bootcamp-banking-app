@@ -143,7 +143,7 @@ public class TransactionServiceImpl implements TransactionService {
 
     }
 
-    public boolean isFraudTransfer(BigDecimal accountBalance, BigDecimal transferAmount) {
+    private boolean isFraudTransfer(BigDecimal accountBalance, BigDecimal transferAmount) {
         boolean isGreaterThat5000 = transferAmount.compareTo(BigDecimal.valueOf(5000)) > 0;
         BigDecimal accountBalance40Percent = accountBalance.multiply(BigDecimal.valueOf(0.4));
         boolean isGreaterThan40Percent = transferAmount.compareTo(accountBalance40Percent) > 0;
